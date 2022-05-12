@@ -182,7 +182,7 @@ public class PostService {
             // reset list nguoiwf da chia se
             targetPost.setUserId(doubleId.getId2());
             targetPost.setId(null);
-            targetPost.setContent("Chia sẽ bài: " + targetPost.getContent());
+            targetPost.setContent("Chia sẻ bài: " + targetPost.getContent());
             targetPost.setLike(new ArrayList<>());
             targetPost.setShare(new ArrayList<>());
             targetPost.setComment(new ArrayList<>());
