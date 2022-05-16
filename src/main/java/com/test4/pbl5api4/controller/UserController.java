@@ -1,5 +1,6 @@
 package com.test4.pbl5api4.controller;
 
+import java.awt.print.Pageable;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import com.test4.pbl5api4.service.ResponseObjectService;
 import com.test4.pbl5api4.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -103,8 +105,8 @@ public class UserController {
     public ResponseEntity<String> testAfterLogin(Principal p) {
         return ResponseEntity.ok("Welcome. You are: " + p.getName());
     }
-//    @GetMapping("/users/{name}")
-//    public ResponseEntity<Optional<UserModel>> search(@PathVariable(value="name") String name){
-//        return new ResponseEntity<ResponseObjectService>(userService.search(name), HttpStatus.OK);
-//    }
+    @GetMapping("/users/{name}")
+    public Page<UserModel> search(Pageable pageable, @PathVariable(value="name") String name){
+        return userRepo.searchByName(pageable, name);
+    }
 }

@@ -215,22 +215,22 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public ResponseObjectService search(String search){
-        ResponseObjectService responseObj = new ResponseObjectService();
-        Optional<UserModel> optUser = userRepo.searchByName(search);
-        if(optUser.isEmpty()){
-            responseObj.setStatus("that bai");
-            responseObj.setMessage("user ko ton tai");
-            responseObj.setPayload(null);
-            return responseObj;
-        }else{
-            List<UserModel> searchList = new ArrayList<>();
-            responseObj.setPayload(optUser.get());
-            responseObj.setStatus("thanh cong");
-            responseObj.setMessage("thanh cong");
-            return responseObj;
-        }
-    }
+//    public ResponseObjectService search(String search){
+//        ResponseObjectService responseObj = new ResponseObjectService();
+//        Optional<UserModel> optUser = userRepo.searchByName(search);
+//        if(optUser.isEmpty()){
+//            responseObj.setStatus("that bai");
+//            responseObj.setMessage("user ko ton tai");
+//            responseObj.setPayload(null);
+//            return responseObj;
+//        }else{
+//            List<UserModel> searchList = new ArrayList<>();
+//            responseObj.setPayload(optUser.get());
+//            responseObj.setStatus("thanh cong");
+//            responseObj.setMessage("thanh cong");
+//            return responseObj;
+//        }
+//    }
 
     public ResponseObjectService followUser(DoubleIdObjectModel doubleId) {
         // id1 - followed user, id2 - follower
