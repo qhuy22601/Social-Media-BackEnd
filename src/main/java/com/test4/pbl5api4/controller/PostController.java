@@ -3,20 +3,21 @@ package com.test4.pbl5api4.controller;
 import com.test4.pbl5api4.model.DoubleIdObjectModel;
 import com.test4.pbl5api4.model.IdObjectModel;
 import com.test4.pbl5api4.model.PostModel;
+import com.test4.pbl5api4.repository.PostRepository;
 import com.test4.pbl5api4.service.PostService;
 import com.test4.pbl5api4.service.ResponseObjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
+
+    @Autowired
+    private PostRepository postRepo;
     @Autowired
     private PostService postService;
 
@@ -24,7 +25,7 @@ public class PostController {
     public ResponseEntity<ResponseObjectService> insertPost(@RequestBody PostModel inputPost) {
         return new ResponseEntity<ResponseObjectService>(postService.insertPost(inputPost), HttpStatus.OK);
     }
-    
+
     @PostMapping("/myposts")
     public ResponseEntity<ResponseObjectService> findPostByUserId(@RequestBody IdObjectModel inputUserId) {
         return new ResponseEntity<ResponseObjectService>(postService.findPostByUserId(inputUserId), HttpStatus.OK);
@@ -49,5 +50,12 @@ public class PostController {
     @PostMapping("/sharepost")
     public ResponseEntity<ResponseObjectService> sharePost(@RequestBody DoubleIdObjectModel doubleId) {
         return new ResponseEntity<ResponseObjectService>(postService.updatePostByShare(doubleId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<HttpStatus> delpost(@PathVariable("id") String id){
+        postRepo.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }
