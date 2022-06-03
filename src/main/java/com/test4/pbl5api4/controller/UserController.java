@@ -105,8 +105,8 @@ public class UserController {
     public ResponseEntity<String> testAfterLogin(Principal p) {
         return ResponseEntity.ok("Welcome. You are: " + p.getName());
     }
-    @GetMapping("/users/{name}")
-    public Page<UserModel> search(Pageable pageable, @PathVariable(value="name") String name){
-        return userRepo.searchByName(pageable, name);
-    }
+//    @GetMapping("/users/{name}")
+//    public Page<UserModel> search(Pageable pageable, @PathVariable(value="name") String name){
+//        return userRepo.searchByName(pageable, name);
+//    }
 }

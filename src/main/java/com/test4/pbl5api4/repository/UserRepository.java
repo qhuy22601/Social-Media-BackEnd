@@ -1,6 +1,7 @@
 package com.test4.pbl5api4.repository;
 
 import java.awt.print.Pageable;
+import java.util.List;
 import java.util.Optional;
 
 import com.test4.pbl5api4.model.UserModel;
@@ -17,7 +18,9 @@ public interface UserRepository extends MongoRepository<UserModel, String> {
 
     Optional<UserModel> findByEmail(String email);
 
-    @Query("FROM user u WHERE u.lastName=:search OR u.firstName =:search")
-    Page<UserModel> searchByName(Pageable pageable, @Param("search") String search);
-    
+//    @Query("FROM user u WHERE u.lastName=:search OR u.firstName =:search")
+//    Page<UserModel> searchByName(Pageable pageable, @Param("search") String search);
+//
+//    @Query("{ 'name' : ?0 }")
+//    List<UserModel> findUsersByName(String name);
 }

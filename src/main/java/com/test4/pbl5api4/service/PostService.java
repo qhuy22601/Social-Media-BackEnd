@@ -31,6 +31,14 @@ public class PostService {
         responseObj.setPayload(postRepo.save(inputPost));
         return responseObj;
     }
+//    public ResponseObjectService delPost(IdObjectModel inputPost){
+//        ResponseObjectService responseObj = new ResponseObjectService();
+//        Optional<PostModel> optPost = postRepo.findById(inputPost.getId());
+//        responseObj.setStatus("thanh cong");
+//        responseObj.setMessage("thanh cong");
+//        responseObj.setPayload(postRepo.deleteById(););
+//        return responseObj;
+//    }
 
 //    public ResponseObjectService delPost(PostModel inputPost) {
 //        ResponseObjectService responseObj = new ResponseObjectService();
@@ -145,7 +153,7 @@ public class PostService {
             if (likeList == null) {
                 likeList = new ArrayList<>();
             }
-            // like and unlike a post
+            // like vaf unlike post
             if (!likeList.contains(doubleId.getId2())) {
                 likeList.add(doubleId.getId2());
             } else {
