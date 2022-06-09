@@ -369,13 +369,15 @@ public class UserService implements UserDetailsService {
             responseObj.setStatus("thanh cong");
             responseObj.setMessage("thanh cong");
             responseObj.setPayload(user);
+            return responseObj;
         }
         if(user.isEmpty()){
             responseObj.setStatus("that bai");
             responseObj.setMessage("ko tim thay nguoi dung: " + lastName);
             responseObj.setPayload(null);
+            return responseObj;
         }
-        return responseObj;
+       return responseObj;
     }
 
 
