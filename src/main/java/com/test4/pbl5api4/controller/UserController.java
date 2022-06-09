@@ -1,7 +1,6 @@
 package com.test4.pbl5api4.controller;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 import com.test4.pbl5api4.model.*;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -69,10 +67,6 @@ public class UserController {
         return new ResponseEntity<ResponseObjectService>(userService.saveUser(inputUser), HttpStatus.OK);
     }
 
-    @PostMapping("/users/getava")
-    public ResponseEntity<ResponseObjectService> getAva(@RequestBody IdObjectModel inputId){
-        return new ResponseEntity<ResponseObjectService>(userService.getAva(inputId.getId()), HttpStatus.OK);
-    }
 
     @PostMapping("/users/signin")
     public ResponseEntity<ResponseObjectService> userSignIn(@RequestBody UserSignInModel inputUser) {
@@ -89,9 +83,9 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/changepass")
+    @PutMapping("/users/changepass")
     public ResponseEntity<ResponseObjectService> userChangePass(@RequestBody UserModel inpPass){
-        return new ResponseEntity<ResponseObjectService>(userService.changePass(inpPass), HttpStatus.OK);
+        return new ResponseEntity<ResponseObjectService>(userService.changeName(inpPass), HttpStatus.OK);
     }
 
     @PutMapping("/users/update")
@@ -101,10 +95,10 @@ public class UserController {
 
     @GetMapping("/getdata")
     public ResponseEntity<String> testAfterLogin(Principal p) {
-        return ResponseEntity.ok("Welcome. You are: " + p.getName());
+        return ResponseEntity.ok("Hello: " + p.getName());
     }
-//    @GetMapping("/users/{name}")
-//    public ResponseEntity<Optional<UserModel>> search(@PathVariable(value="name") String name){
-//        return new ResponseEntity<ResponseObjectService>(userService.search(name), HttpStatus.OK);
-//    }
+    @GetMapping("/users/{name}")
+    public ResponseEntity<ResponseObjectService> search(@PathVariable(value="name") String name){
+        return new ResponseEntity<ResponseObjectService>(userService.searchByLastName(name), HttpStatus.OK);
+    }
 }

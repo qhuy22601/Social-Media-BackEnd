@@ -14,6 +14,9 @@ import com.test4.pbl5api4.repository.PostRepository;
 import com.test4.pbl5api4.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -32,6 +35,9 @@ public class UserService implements UserDetailsService {
     private PostRepository postRepo;
     @Autowired
     private BCryptPasswordEncoder bCryptEncoder;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public ResponseObjectService findAll() {
         ResponseObjectService responseObj = new ResponseObjectService();
@@ -195,6 +201,25 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public ResponseObjectService changeName(UserModel inpUser){
+        ResponseObjectService responseObj = new ResponseObjectService();
+        Optional<UserModel> optUser = userRepo.findById(inpUser.getId());
+        if( optUser == null){
+            responseObj.setStatus("that bai");
+            responseObj.setMessage("that bai");
+            responseObj.setPayload(null);
+        }
+        else{
+            UserModel currentUser = optUser.get();
+            currentUser.setFirstName(inpUser.getFirstName());
+            currentUser.setLastName(inpUser.getLastName());
+            responseObj.setStatus("thanh cong");
+            responseObj.setMessage("thanh cong");
+            responseObj.setPayload(userRepo.save(currentUser));
+        }
+        return responseObj;
+    }
+
     public ResponseObjectService changePass(UserModel inpPass){
         ResponseObjectService responseObj = new ResponseObjectService();
         Optional<UserModel> optUser = userRepo.findById(inpPass.getId());
@@ -204,7 +229,6 @@ public class UserService implements UserDetailsService {
             responseObj.setPayload(null);
             return responseObj;
         }else{
-
             inpPass.setPassword(bCryptEncoder.encode(inpPass.getPassword()));
             UserModel user = userRepo.save(inpPass);
             responseObj.setPayload(user);
@@ -333,6 +357,28 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+
+    public ResponseObjectService searchByLastName(String lastName){
+        ResponseObjectService responseObj = new ResponseObjectService();
+
+        Query query =  new Query();
+        query.addCriteria(Criteria.where("lastName").is(lastName));
+        List<UserModel> user = mongoTemplate.find(query, UserModel.class);
+
+        if(user.size()>1){
+            responseObj.setStatus("thanh cong");
+            responseObj.setMessage("thanh cong");
+            responseObj.setPayload(user);
+        }
+        if(user.isEmpty()){
+            responseObj.setStatus("that bai");
+            responseObj.setMessage("ko tim thay nguoi dung: " + lastName);
+            responseObj.setPayload(null);
+        }
+        return responseObj;
+    }
+
+
 
     // ****
     // su dungj email de login thay vi user name

@@ -12,7 +12,12 @@ import com.test4.pbl5api4.repository.PostRepository;
 import com.test4.pbl5api4.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class PostService {
@@ -20,6 +25,8 @@ public class PostService {
     private PostRepository postRepo;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     private List<PostModel> list;
     
@@ -31,6 +38,8 @@ public class PostService {
         responseObj.setPayload(postRepo.save(inputPost));
         return responseObj;
     }
+
+
 
 //    public ResponseObjectService delPost(PostModel inputPost) {
 //        ResponseObjectService responseObj = new ResponseObjectService();

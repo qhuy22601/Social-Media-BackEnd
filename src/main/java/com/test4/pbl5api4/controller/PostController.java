@@ -56,6 +56,5 @@ public class PostController {
     public ResponseEntity<HttpStatus> delpost(@PathVariable("id") String id){
         postRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 }
