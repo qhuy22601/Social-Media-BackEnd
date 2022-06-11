@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+
     public ResponseObjectService findAll() {
         ResponseObjectService responseObj = new ResponseObjectService();
         responseObj.setPayload(userRepo.findAll());
@@ -201,10 +202,10 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ResponseObjectService changeName(UserModel inpUser){
+    public ResponseObjectService changeName(UserModel inpUser, String id){
         ResponseObjectService responseObj = new ResponseObjectService();
-        Optional<UserModel> optUser = userRepo.findById(inpUser.getId());
-        if( optUser == null){
+        Optional<UserModel> optUser = userRepo.findById(id);
+        if( optUser.isEmpty()){
             responseObj.setStatus("that bai");
             responseObj.setMessage("that bai");
             responseObj.setPayload(null);

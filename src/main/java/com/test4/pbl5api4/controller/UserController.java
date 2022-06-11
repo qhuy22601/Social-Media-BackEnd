@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +26,7 @@ public class UserController {
 
     @Autowired
     private JWTUtil jwtUtil;
+
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -83,21 +85,27 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/changepass")
-    public ResponseEntity<ResponseObjectService> userChangePass(@RequestBody UserModel inpPass){
-        return new ResponseEntity<ResponseObjectService>(userService.changeName(inpPass), HttpStatus.OK);
-    }
+//    @PutMapping("/users/changepass")
+//    public ResponseEntity<ResponseObjectService> userChangePass(@RequestBody UserModel inpPass){
+//        return new ResponseEntity<ResponseObjectService>(userService.changeName(inpPass), HttpStatus.OK);
+//    }
 
     @PutMapping("/users/update")
     public ResponseEntity<ResponseObjectService> update(@RequestBody UserModel inputUser) {
         return new ResponseEntity<ResponseObjectService>(userService.update(inputUser), HttpStatus.OK);
     }
 
+    @PutMapping("/users/change/{id}")
+    public ResponseEntity<ResponseObjectService> changeName(@RequestBody UserModel inputUser, @PathVariable("id") String id){
+        return new ResponseEntity<ResponseObjectService>(userService.changeName(inputUser, id), HttpStatus.OK);
+    }
+
     @GetMapping("/getdata")
     public ResponseEntity<String> testAfterLogin(Principal p) {
         return ResponseEntity.ok("Hello: " + p.getName());
     }
-    @GetMapping("/users/{name}")
+
+    @PostMapping("/users/{name}")
     public ResponseEntity<ResponseObjectService> search(@PathVariable(value="name") String name){
         return new ResponseEntity<ResponseObjectService>(userService.searchByLastName(name), HttpStatus.OK);
     }
