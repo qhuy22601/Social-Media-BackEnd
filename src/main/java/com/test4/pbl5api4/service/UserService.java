@@ -214,6 +214,7 @@ public class UserService implements UserDetailsService {
             UserModel currentUser = optUser.get();
             currentUser.setFirstName(inpUser.getFirstName());
             currentUser.setLastName(inpUser.getLastName());
+            currentUser.setAvata(inpUser.getAvata());
             responseObj.setStatus("thanh cong");
             responseObj.setMessage("thanh cong");
             responseObj.setPayload(userRepo.save(currentUser));
