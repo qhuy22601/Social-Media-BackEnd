@@ -1,6 +1,6 @@
 package com.test4.pbl5api4.service;
 
-public class ResponseObjectService {
+public class  ResponseObjectService {
     private String status;
     private String message;
     private Object payload;

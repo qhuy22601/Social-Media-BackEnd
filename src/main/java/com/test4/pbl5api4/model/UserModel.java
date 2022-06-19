@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "user")
+@Document(collection = "users")
 public class UserModel {
     @Id
     private String id;
@@ -22,11 +22,19 @@ public class UserModel {
 
     private String lastName;
 
+    private String userName;
+
     private String email;
 
     private String password;
 
     private String avata;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private String birthDate;
 
     private String role;
 

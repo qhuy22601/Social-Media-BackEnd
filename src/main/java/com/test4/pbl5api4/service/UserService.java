@@ -48,6 +48,8 @@ public class UserService implements UserDetailsService {
         return responseObj;
     }
 
+
+
     public ResponseObjectService findById(String id) {
         ResponseObjectService responseObj = new ResponseObjectService();
         Optional<UserModel> optUser = userRepo.findById(id);
@@ -215,6 +217,10 @@ public class UserService implements UserDetailsService {
             currentUser.setFirstName(inpUser.getFirstName());
             currentUser.setLastName(inpUser.getLastName());
             currentUser.setAvata(inpUser.getAvata());
+            currentUser.setUserName(inpUser.getUserName());
+            currentUser.setBirthDate(inpUser.getBirthDate());
+            currentUser.setAddress(inpUser.getAddress());
+            currentUser.setPhoneNumber(inpUser.getPhoneNumber());
             responseObj.setStatus("thanh cong");
             responseObj.setMessage("thanh cong");
             responseObj.setPayload(userRepo.save(currentUser));

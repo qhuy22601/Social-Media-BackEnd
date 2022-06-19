@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,6 +32,12 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @GetMapping("/all")
+    public ResponseEntity<UserModel> all(){
+        userService.findAll();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PostMapping("/users")
     public ResponseEntity<ResponseObjectService> findAllUsers() {
