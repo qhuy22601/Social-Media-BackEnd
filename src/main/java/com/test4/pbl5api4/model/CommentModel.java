@@ -21,6 +21,10 @@ public class CommentModel {
 
     private String userFullname;
 
+    private String username;
+
+    private String avata;
+
     private String content;
 
     private Instant createdAt;

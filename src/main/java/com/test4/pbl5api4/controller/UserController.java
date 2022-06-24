@@ -1,6 +1,7 @@
 package com.test4.pbl5api4.controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import com.test4.pbl5api4.model.*;
@@ -110,8 +111,14 @@ public class UserController {
         return ResponseEntity.ok("Hello: " + p.getName());
     }
 
-    @PostMapping("/users/{name}")
-    public ResponseEntity<ResponseObjectService> search(@PathVariable(value="name") String name){
-        return new ResponseEntity<ResponseObjectService>(userService.searchByLastName(name), HttpStatus.OK);
+    @GetMapping("/users/search/{name}")
+        public ResponseEntity<List<UserModel>> search(@PathVariable("name") String username){
+            return new ResponseEntity<>(userRepo.findNamedParameters(username),HttpStatus.OK);
+
+    }
+    @GetMapping("/users/searching/{name}")
+    public ResponseEntity<List<UserModel>> auto(@PathVariable("name") String username){
+        return new ResponseEntity<>(userRepo.findNamedParameters(username),HttpStatus.OK);
+
     }
 }

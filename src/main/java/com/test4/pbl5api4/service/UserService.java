@@ -217,7 +217,7 @@ public class UserService implements UserDetailsService {
             currentUser.setFirstName(inpUser.getFirstName());
             currentUser.setLastName(inpUser.getLastName());
             currentUser.setAvata(inpUser.getAvata());
-            currentUser.setUserName(inpUser.getUserName());
+            currentUser.setUsername(inpUser.getUsername());
             currentUser.setBirthDate(inpUser.getBirthDate());
             currentUser.setAddress(inpUser.getAddress());
             currentUser.setPhoneNumber(inpUser.getPhoneNumber());
@@ -247,22 +247,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public ResponseObjectService search(String search){
-        ResponseObjectService responseObj = new ResponseObjectService();
-        Optional<UserModel> optUser = userRepo.searchByName(search);
-        if(optUser.isEmpty()){
-            responseObj.setStatus("that bai");
-            responseObj.setMessage("user ko ton tai");
-            responseObj.setPayload(null);
-            return responseObj;
-        }else{
-            List<UserModel> searchList = new ArrayList<>();
-            responseObj.setPayload(optUser.get());
-            responseObj.setStatus("thanh cong");
-            responseObj.setMessage("thanh cong");
-            return responseObj;
-        }
-    }
+
 
     public ResponseObjectService followUser(DoubleIdObjectModel doubleId) {
         // id1 - followed user, id2 - follower
@@ -348,23 +333,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ResponseObjectService getAva(String id){
-        ResponseObjectService responseObj = new ResponseObjectService();
-        Optional<UserModel> optUser = userRepo.findById(id);
-        if(optUser.isEmpty()) {
-            responseObj.setStatus("that bai");
-            responseObj.setMessage("user id: " + id + " ko ton tai");
-            responseObj.setPayload(null);
-            return responseObj;
-        }else{
-            UserModel user = optUser.get();
-            String ava = user.getAvata();
-            responseObj.setStatus("thanh cong");
-            responseObj.setMessage("thanh cong");
-            responseObj.setPayload(ava);
-            return responseObj;
-        }
-    }
+
 
     public ResponseObjectService searchByLastName(String lastName){
         ResponseObjectService responseObj = new ResponseObjectService();
@@ -386,6 +355,17 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
        return responseObj;
+    }
+
+
+    public List<UserModel> findbyname(String name){
+        List<UserModel> list = userRepo.findUserModelByUsernameIsLike(name);
+        return list;
+    }
+
+    public List<UserModel> searching (String name){
+        List<UserModel> list = userRepo.findNamedParameters(name);
+        return list;
     }
 
 

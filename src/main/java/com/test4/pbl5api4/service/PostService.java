@@ -130,7 +130,7 @@ public class PostService {
             responseObj.setPayload(null);
             return responseObj;
         } else {
-            // inputPost.setCreatedAt(Instant.now());
+//             inputPost.setCreatedAt(Instant.now());
             postRepo.save(inputPost);
             responseObj.setStatus("thanh cong");
             responseObj.setMessage("ok");
