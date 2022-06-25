@@ -118,7 +118,12 @@ public class UserController {
     }
     @GetMapping("/users/searching/{name}")
     public ResponseEntity<List<UserModel>> auto(@PathVariable("name") String username){
-        return new ResponseEntity<>(userRepo.findNamedParameters(username),HttpStatus.OK);
+        return new ResponseEntity<>(userRepo.findUserModelByUsernameIsLike(username),HttpStatus.OK);
 
+    }
+
+    @GetMapping("/users/{name}")
+    public ResponseEntity<UserModel> getuserr(@PathVariable("name") String name){
+        return new ResponseEntity<>(userRepo.getuserr(name), HttpStatus.OK);
     }
 }

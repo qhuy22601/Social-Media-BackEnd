@@ -14,6 +14,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public interface UserRepository extends MongoRepository<UserModel, String> {
 
@@ -29,11 +30,17 @@ public interface UserRepository extends MongoRepository<UserModel, String> {
 //    @Query("select  u from UserModel u where u.name like %:name%")
 //    List<UserModel> testLike (@Param("name") String name);
 
-    List<UserModel> findUserModelByUsernameIsLike(String name);
+
 
     @Query("{'username' : :#{#username}}")
     List<UserModel> findNamedParameters(@Param("username")String username);
 
+    @Query("{'username' : :#{#username}}")
+    List<UserModel> findUserModelByUsernameIsLike(@Param("username")String username);
+
+
+    @Query("{'username' : :#{#username}}")
+    UserModel getuserr(@Param("username")String username);
 
 
 }
